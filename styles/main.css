@@ -1,0 +1,63 @@
+.wrapper {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1f;
+    width: 80vw;
+    background-color: cyan;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.border {
+    border-radius: 25px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: blue;
+}
+
+.centered {
+    text-align: center;
+}
+
+.primary {
+    color: #da56ff;
+}
+
+.secondary {
+    color: #b0f;
+}
+
+.therapy {
+    display: flex;
+    justify-content: space-around;
+    padding: 2vh;
+    background-color: #dba5ff;
+    border-color: red;
+}
+
+.therapy-old {
+    border-color: lightgreen;
+}
+
+.therapy-new {
+    border-color: red;
+}
+
+.button {
+    justify-content: center;
+    text-align: center;
+    background-color: rgb(208, 255, 0);
+    margin: 4vh;
+    font-size: 1.5rem;
+}
+
+.button:hover {
+    background-color: lightblue;
+    cursor: pointer;
+}
+
+.button:active {
+    background-color: lightskyblue;
+}
