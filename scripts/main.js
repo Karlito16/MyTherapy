@@ -7,6 +7,7 @@ let button;
 let infoParagraph;
 
 
+/* Function is used for saving the data into the local storage used by broswer. */
 function updateStorage() {
     let therapies = {};
     therapies["last"] = lastTherapy;
@@ -15,6 +16,8 @@ function updateStorage() {
 }
 
 
+/* Function updates the UI: 
+    previous therapy date and next therapy date, respectively. */
 function updateUI() {
     let div = document.querySelector(".therapy-old");
     div.querySelector(".primary").innerHTML = lastTherapy.getFormatedDate();
@@ -26,19 +29,41 @@ function updateUI() {
 }
 
 
+/* Value in infoParagraph is static.
+So when we want to show the info to the client,
+we simply unhide the html element. And vice versa! */
 function updateInfo(show) {
     infoParagraph.hidden = !show;
 }
 
 
+/* Function checks if it is the time for therapy. 
+It is possible that therapy was skipped, and in that case
+app will allow client to use therapy aswell.
+Returns boolean value. */
 function checkDay() {
-    let today = new Date();
-    if (today.getMonth() == nextTherapy.getDate().getMonth() && today.getDate() == nextTherapy.getDate().getDate())
+
+    function checkIfSkipped() {
+        return currentMonth === nextTherapyMonth ? 
+                currentDay >= nextTherapyDay :
+                currentMonth >= nextTherapyMonth;
+    }
+
+    const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentDay = today.getDate();
+    const nextTherapyMonth = nextTherapy.getDate().getMonth();
+    const nextTherapyDay = nextTherapy.getDate().getDate();
+    
+    if (currentMonth === nextTherapyMonth && currentDay === nextTherapyDay)
         return true;
-    return false;
+    return checkIfSkipped();
 }
 
 
+/* Function is called when a client presses the "Pikni se!" button.
+If it is allowed to take the therapy, function updates UI aswell as 
+a date for the next therapy. */
 function doTherapy() { 
     if (checkDay()) {
         updateInfo(false);
@@ -53,6 +78,9 @@ function doTherapy() {
 }
 
 
+/* Main function. 
+Loads data from local storage (therapies, previous and the following one).
+Updates the UI. Adds UI functionallity. */
 function main() {
     let data = localStorage.getItem("therapy");
 
@@ -61,7 +89,7 @@ function main() {
         lastTherapy = new Therapy(new Date(data["last"].date), data["last"].side);
         nextTherapy = new Therapy(new Date(data["next"].date), data["next"].side);
     } else {
-        lastTherapy = new Therapy(new Date(2022, 3, 20), 'D');  //hardcoded, enough for now!
+        lastTherapy = new Therapy(new Date(2022, 3, 29), 'D');  //hardcoded, enough for now!
         nextTherapy = lastTherapy.calculateNextTherapy();
         updateStorage();
     }

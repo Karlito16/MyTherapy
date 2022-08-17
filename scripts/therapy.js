@@ -1,3 +1,8 @@
+/* Class Therapy. 
+Attribute date stores the date object, represents the date when therapy is used/should be used.
+Attr. side marks the side of the stomach, in which therapy should be put.
+Static attribute therapy_interval defines the period between two therapies.
+Methods are trivial to understand. */
 export class Therapy {
     #date;
     #side;
